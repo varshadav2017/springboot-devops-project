@@ -11,21 +11,29 @@ pipeline {
 
         stage('Build Application') {
             steps {
-                sh 'chmod +x mvnw'
-                sh './mvnw clean package'
+                sh '''
+                chmod +x mvnw
+                ./mvnw clean package
+                '''
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t springboot-app .'
+                sh '''
+                docker build -t springboot-app .
+                '''
             }
         }
 
         stage('Run Container') {
             steps {
-                sh 'docker run -d -p 9090:8080 springboot-app'
+                sh '''
+                docker rm -f springboot-container || true
+                docker run -d -p 9090:8080 --name springboot-container springboot-app
+                '''
             }
         }
+
     }
 }
