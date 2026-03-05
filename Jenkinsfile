@@ -20,11 +20,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh '''
-                apt-get update
-                apt-get install -y docker.io
-                docker build -t springboot-app .
-                '''
+                sh 'docker build -t springboot-app .'
             }
         }
 
