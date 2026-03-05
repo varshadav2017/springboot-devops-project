@@ -5,12 +5,13 @@ pipeline {
 
         stage('Clone Code') {
             steps {
-        git branch: 'main', url: 'https://github.com/varshadav2017/springboot-devops-project.git'
+                git branch: 'main', url: 'https://github.com/varshadav2017/springboot-devops-project.git'
             }
         }
 
         stage('Build Application') {
             steps {
+                sh 'chmod +x mvnw'
                 sh './mvnw clean package'
             }
         }
